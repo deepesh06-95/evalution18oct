@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width:400px;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top Stories</h1>
+    <div id="topstory"></div>
+</body>
+</html>
+<script>
+    //4eb0a2c8f3db480d8f567720baf92eb8
+    //https://newsapi.org/v2/everything?q=keyword&apiKey=4eb0a2c8f3db480d8f567720baf92eb8
+    //https://newsapi.org/v2/top-headlines?country=us&apiKey=4eb0a2c8f3db480d8f567720baf92eb8
+
+    let top_story=document.getElementById("topstory");
+
+    async function top_head(){
+
+        let res=await fetch(`http://newsapi.org/v2/top-headlines?country=in&apiKey=4eb0a2c8f3db480d8f567720baf92eb8`);
+
+        let data=await res.json();
+
+      console.log(data);
+        appendtop_new(data.articles);
+    }
+
+    function appendtop_new(news){
+     
+        news.forEach(({title,description,urlToImage})=>{
+            let div=document.createElement("div");
+            let head=document.createElement("h2");
+            let head1=document.createElement("h4");
+            let img=document.createElement("img");
+            head.textContent=title;
+            head1.textContent=description;
+            img.src=urlToImage;
+            div.append(head,head1,img);
+            top_story.append(div);
+        });
+
+    }
+    top_head();
+</script>

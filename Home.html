@@ -38,6 +38,12 @@
            color: white;
            background-color: grey;
         }
+        .main{
+            margin: auto;
+            background-color: grey;
+            color: white;
+        }
+        
     </style>
 </head>
 <body>
@@ -94,6 +100,7 @@
     function showingnews({author,content,publishedAt,title,description,urlToImage}){
         top_story.innerHTML=null;
         let div=document.createElement("div");
+        div.setAttribute("class","main");
         let cont=document.createElement("h5");
         let auth=document.createElement("h3");
         let pub=document.createElement("p");
@@ -101,6 +108,9 @@
         let des=document.createElement("h3");
         let img=document.createElement("img");
         img.src=urlToImage;
+        img.style.marginLeft="30%";
+        img.style.width="600px";
+        img.style.height="300px";
         cont.textContent="Content--"+content;
         pub.textContent="Published At--"+publishedAt;
         titl.textContent="Title--"+title;

@@ -19,6 +19,30 @@
             padding: 1%;
             width:150px;
         }
+        .hind{
+            display: grid;
+            grid-template-columns: 40% 15%;
+            grid-gap: 2%;
+            margin-left: 22%;
+        }
+        .hind>div:nth-child(1){
+          color: white;
+          background-color: grey;
+          margin-top: 3%;
+       }
+        .hind>div:nth-child(2){
+           
+            margin-left: -10%;
+           margin-top: 30%;
+           margin-bottom: 30%;
+           color: white;
+           background-color: grey;
+        }
+        .main{
+            margin: auto;
+            background-color: grey;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -51,16 +75,23 @@
      
         news.forEach(({author,content,publishedAt,title,description,urlToImage})=>{
             let div=document.createElement("div");
+            div.setAttribute("class","hind");
+            let div1=document.createElement("div");
+            let div2=document.createElement("div");
             let head=document.createElement("h2");
-            let head1=document.createElement("h4");
+            let head1=document.createElement("p");
             let img=document.createElement("img");
+            let auth=document.createElement("h3");
+            auth.textContent="Author--"+author;
             head.textContent=title;
             head1.textContent=description;
             img.src=urlToImage;
             div.onclick=function(){
                 showingnews({author,content,publishedAt,title,description,urlToImage});
             }
-            div.append(head,head1,img);
+            div1.append(head,auth,img);
+            div2.append(head1);
+            div.append(div1,div2);
             top_story.append(div);
         });
 
@@ -70,6 +101,7 @@
     function showingnews({author,content,publishedAt,title,description,urlToImage}){
         top_story.innerHTML=null;
         let div=document.createElement("div");
+        div.setAttribute("class","main");
         let cont=document.createElement("h5");
         let auth=document.createElement("h3");
         let pub=document.createElement("p");
@@ -77,6 +109,9 @@
         let des=document.createElement("h3");
         let img=document.createElement("img");
         img.src=urlToImage;
+        img.style.marginLeft="30%";
+        img.style.width="600px";
+        img.style.height="300px";
         cont.textContent="Content--"+content;
         pub.textContent="Published At--"+publishedAt;
         titl.textContent="Title--"+title;

@@ -9,6 +9,7 @@
         img{
             width:400px;
             height: 250px;
+            border: 2px solid white;
         }
         input{
             padding: 1%;
@@ -87,7 +88,14 @@
             head1.textContent=description;
             img.src=urlToImage;
             div.onclick=function(){
-                showingnews({author,content,publishedAt,title,description,urlToImage});
+                if(localStorage.getItem("open")==null)
+        {
+            localStorage.setItem("open",JSON.stringify([]));
+        }
+        let openfornews=JSON.parse(localStorage.getItem("open"));
+        openfornews.push({author,content,publishedAt,title,description,urlToImage});
+        localStorage.setItem("open",JSON.stringify(openfornews));
+        window.location.href="news.html";
             }
             div1.append(head,auth,img);
             div2.append(head1);

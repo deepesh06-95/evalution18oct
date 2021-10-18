@@ -19,31 +19,12 @@
             padding: 1%;
             width:150px;
         }
-        .hind{
-            display: grid;
-            grid-template-columns: 40% 15%;
-            grid-gap: 2%;
-            margin-left: 22%;
-        }
-        .hind>div:nth-child(1){
-          color: white;
-          background-color: grey;
-          margin-top: 3%;
-       }
-        .hind>div:nth-child(2){
-           
-            margin-left: -10%;
-           margin-top: 30%;
-           margin-bottom: 30%;
-           color: white;
-           background-color: grey;
-        }
     </style>
 </head>
 <body>
     <input id="Search" placeholder="Search"/>
     <button onclick="search()">Search</button>
-    <h1>Top Stories</h1>
+    <h1>Your Search Results</h1>
     <div id="topstory"></div>
 </body>
 </html>
@@ -56,11 +37,13 @@
 
     async function top_head(){
 
-        let res=await fetch(`http://newsapi.org/v2/top-headlines?country=in&apiKey=4eb0a2c8f3db480d8f567720baf92eb8`);
+        let serfornews=JSON.parse(localStorage.getItem("sernews"));
+
+        let res=await fetch(`http://newsapi.org/v2/everything?q=${serfornews[serfornews.length-1]}&apiKey=4eb0a2c8f3db480d8f567720baf92eb8`);
 
         let data=await res.json();
 
-
+        console.log(data);
         appendtop_new(data.articles);
     }
 
@@ -68,23 +51,16 @@
      
         news.forEach(({author,content,publishedAt,title,description,urlToImage})=>{
             let div=document.createElement("div");
-            div.setAttribute("class","hind");
-            let div1=document.createElement("div");
-            let div2=document.createElement("div");
             let head=document.createElement("h2");
-            let head1=document.createElement("p");
+            let head1=document.createElement("h4");
             let img=document.createElement("img");
-            let auth=document.createElement("h3");
-            auth.textContent="Author--"+author;
             head.textContent=title;
             head1.textContent=description;
             img.src=urlToImage;
             div.onclick=function(){
                 showingnews({author,content,publishedAt,title,description,urlToImage});
             }
-            div1.append(head,auth,img);
-            div2.append(head1);
-            div.append(div1,div2);
+            div.append(head,head1,img);
             top_story.append(div);
         });
 
